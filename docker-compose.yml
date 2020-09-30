@@ -14,7 +14,7 @@ services:
             context: .
             dockerfile: docker/php/Dockerfile
         volumes:
-            - ./code:/var/www/html
+            - ./code:/var/www/html:rw
     php_cli:
         build:
             context: .
