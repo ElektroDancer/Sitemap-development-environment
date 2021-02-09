@@ -7,6 +7,8 @@ services:
             dockerfile: docker/nginx/Dockerfile
         volumes:
             - ./code/public:/var/www/html/public
+            - ./code/src/database/file:/var/www/html/src/database/file:rw
+        privileged: true
         ports:
             - "80:80"
     php_fpm:
@@ -15,6 +17,7 @@ services:
             dockerfile: docker/php/Dockerfile
         volumes:
             - ./code:/var/www/html:rw
+        privileged: true
     php_cli:
         build:
             context: .
