@@ -2,6 +2,7 @@ version: '3'
 
 services:
     nginx:
+        container_name: sitemap_nginx
         build:
             context: .
             dockerfile: docker/nginx/Dockerfile
@@ -12,6 +13,7 @@ services:
         ports:
             - "80:80"
     php_fpm:
+        container_name: sitemap_php
         build:
             context: .
             dockerfile: docker/php/Dockerfile
@@ -19,8 +21,20 @@ services:
             - ./code:/var/www/html:rw
         privileged: true
     php_cli:
+        container_name: sitemap_php-cli
         build:
             context: .
             dockerfile: docker/php_cli/Dockerfile
         volumes:
             - ./code:/var/www/html
+    database:
+        container_name: sitemap_database
+        build:
+            context: .
+            dockerfile: docker/database/Dockerfile
+        volumes:
+            - ./database:/var/lib/mysql:rw
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
